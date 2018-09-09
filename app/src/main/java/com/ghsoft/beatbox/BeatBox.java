@@ -2,6 +2,9 @@ package com.ghsoft.beatbox;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
+
+import java.io.IOException;
 
 /**
  * 为了能在应用中定位、管理记录以及播放声音资产资源
@@ -14,5 +17,20 @@ public class BeatBox {
 
     public BeatBox(Context context) {
         mAssets = context.getAssets();
+        loadSounds();
+    }
+
+    /**
+     * 获取所有声音资产的文件名
+     */
+    private void loadSounds() {
+        String[] soundNames;
+        try {
+            soundNames = mAssets.list(SOUNDS_FOLDER);
+            Log.i(TAG, "Found " + soundNames.length + " sounds");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            Log.e(TAG, "Could not list assets",ioe);
+        }
     }
 }
