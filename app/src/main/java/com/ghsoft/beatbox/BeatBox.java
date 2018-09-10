@@ -55,6 +55,11 @@ public class BeatBox {
         }
     }
 
+    /**
+     * 加载当前声音资产资源文件
+     * @param sound 当前声音资产对象
+     * @throws IOException
+     */
     private void load(Sound sound) throws IOException {
         // 根据文件路径获取当前音频资产资源的文件描述符
         AssetFileDescriptor afd = mAssets.openFd(sound.getAssetsPath());
@@ -63,6 +68,11 @@ public class BeatBox {
         // 返回的id即为当前音频资产资源文件的id
         sound.setSoundId(soundId);
     }
+
+    /**
+     * 播放当前声音资产资源
+     * @param sound 当前声音资产资源
+     */
     public void play(Sound sound){
         // 获取描述当前声音资产资源的soundId
         Integer soundId = sound.getSoundId();
@@ -73,6 +83,13 @@ public class BeatBox {
         // 加载成功后获取到soundId,播放音频文件
         //                       左右音量 - 最大                  优先级 - 无效 不循环 常速播放
         mSoundPool.play(soundId,1.0f,1.0f,1,0,1.0f);
+    }
+
+    /**
+     * 释放音频池中加载的所有声音资产资源
+     */
+    public void release(){
+        mSoundPool.release();
     }
     public List<Sound> getSounds() {
         return mSounds;
