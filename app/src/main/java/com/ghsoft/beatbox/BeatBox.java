@@ -1,6 +1,7 @@
 package com.ghsoft.beatbox;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -30,7 +31,7 @@ public class BeatBox {
     }
 
     /**
-     * 获取所有声音资产的文件名
+     * 加载所有声音资产
      */
     private void loadSounds() {
         String[] soundNames = null;
@@ -42,10 +43,25 @@ public class BeatBox {
             Log.e(TAG, "Could not list assets",ioe);
         }
         for (String fileName : soundNames) { // 遍历声音资产文件名清单,转化为sound列表
-            String assetPath = SOUNDS_FOLDER + "/" + fileName;
-            Sound sound = new Sound(assetPath);
-            mSounds.add(sound);
+            // 加载当前的声音资产资源
+            try {
+                String assetPath = SOUNDS_FOLDER + "/" + fileName;
+                Sound sound = new Sound(assetPath);
+                load(sound);
+                mSounds.add(sound);
+            } catch (IOException ioe) {
+                Log.e(TAG, "Could not load sound " + fileName,ioe);
+            }
         }
+    }
+
+    private void load(Sound sound) throws IOException {
+        // 根据文件路径获取当前音频资产资源的文件描述符
+        AssetFileDescriptor afd = mAssets.openFd(sound.getAssetsPath());
+        // 加载该描述符所指向的音频资产资源文件
+        int soundId = mSoundPool.load(afd, 1);
+        // 返回的id即为当前音频资产资源文件的id
+        sound.setSoundId(soundId);
     }
 
     public List<Sound> getSounds() {
