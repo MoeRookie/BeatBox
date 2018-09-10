@@ -63,7 +63,17 @@ public class BeatBox {
         // 返回的id即为当前音频资产资源文件的id
         sound.setSoundId(soundId);
     }
-
+    public void play(Sound sound){
+        // 获取描述当前声音资产资源的soundId
+        Integer soundId = sound.getSoundId();
+        // 由于存在文件加载失败的情况,加载失败时无需播放
+        if (soundId == null) {
+            return;
+        }
+        // 加载成功后获取到soundId,播放音频文件
+        //                       左右音量 - 最大                  优先级 - 无效 不循环 常速播放
+        mSoundPool.play(soundId,1.0f,1.0f,1,0,1.0f);
+    }
     public List<Sound> getSounds() {
         return mSounds;
     }
