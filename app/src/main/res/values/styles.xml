@@ -12,4 +12,8 @@
         <item name="android:background">@color/dark_blue</item>
     </style>
 
+    <style name="StrongBeatBoxButton" parent="BeatBoxButton">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
