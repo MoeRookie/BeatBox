@@ -8,6 +8,10 @@ public class SoundViewModel {
         mBeatBox = beatBox;
     }
 
+    public String getTitle(){
+        return mSound.getName();
+    }
+
     public Sound getSound(){
         return mSound;
     }
