@@ -38,6 +38,7 @@ public class BeatBoxFragment extends Fragment {
             , @Nullable Bundle savedInstanceState) {
         FragmentBeatBoxBinding binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_beat_box,container,false);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         return binding.getRoot();
         // todo=> 待删除
         // View view = inflater.inflate(R.layout.fragment_beat_box, container, false);
