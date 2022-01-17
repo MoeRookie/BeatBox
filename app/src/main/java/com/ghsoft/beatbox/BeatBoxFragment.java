@@ -56,6 +56,28 @@ public class BeatBoxFragment extends Fragment {
             mBinding = binding;
         }
     }
+
+    private class SoundAdapter extends RecyclerView.Adapter<SoundHolder>{
+
+        @NonNull
+        @Override
+        public SoundHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            ListItemSoundBinding binding = DataBindingUtil
+                    .inflate(inflater, R.layout.list_item_sound, parent, false);
+            return new SoundHolder(binding);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull SoundHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 0;
+        }
+    }
 //    todo=>待删除
 //    private class SoundHolder extends RecyclerView.ViewHolder
 //    implements View.OnClickListener{
